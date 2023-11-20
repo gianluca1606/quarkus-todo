@@ -26,7 +26,8 @@
 
     <div class="p-4">
         <h2 class="text-3xl font-bold mb-4">Create Todo</h2>
-        <form id="createTodoForm" hx-target-5*="#serious-errors" hx-post="/todos" hx-target="#todoList" hx-swap="beforeend">
+        <form id="createTodoForm" hx-target-5*="#serious-errors" hx-post="/todos" hx-target="#todoList"
+              hx-swap="beforeend">
             <div class="mb-4">
                 <label for="name" class="block text-sm font-medium text-gray-700">Name:</label>
                 <input type="text" id="name" name="name" class="mt-1 p-2 border rounded-md w-full" required>
@@ -34,7 +35,8 @@
 
             <div class="mb-4">
                 <label for="description" class="block text-sm font-medium text-gray-700">Description:</label>
-                <input type="text" id="description" name="description" class="mt-1 p-2 border rounded-md w-full" required>
+                <input type="text" id="description" name="description" class="mt-1 p-2 border rounded-md w-full"
+                       required>
             </div>
 
             <div class="mb-4">
@@ -52,7 +54,7 @@
 <script src="https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js"></script>
 
 <script>
-    document.body.addEventListener('htmx:afterSwap', function(evt) {
+    document.body.addEventListener('htmx:afterSwap', function (evt) {
         const form = document.querySelector("#createTodoForm");
         form.reset();
     });

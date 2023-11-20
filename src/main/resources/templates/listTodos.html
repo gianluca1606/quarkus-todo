@@ -5,9 +5,12 @@
     <strong>Name:</strong> {todo.name},
     <strong>Description:</strong> {todo.description},
     <strong>Done:</strong> {#if todo.done}'Yes'{#else}'No'{/if}
-    {#if !todo.done}
-        <button hx-put="/todos/{todo.id}/complete" hx-trigger="click" class="bg-blue-500 text-white px-4 py-2 rounded-full mt-2" hx-swap="outerHTML" hx-target="#todo-{todo.id}">Mark as Completed</button>
+    {#if ! todo.done}
+        <button hx-put="/todos/{todo.id}/complete" hx-trigger="click" class="bg-blue-500 text-white px-4 py-2 rounded-full mt-2" hx-swap="outerHTML" hx-target="#todo-{todo.id}">
+            Mark as Completed</button>
     {/if}
+    <button hx-delete="/todos/{todo.id}" hx-trigger="click" class="bg-red-500 text-white px-4 py-2 rounded-full mt-2" hx-swap="outerHTML" hx-target="#todo-{todo.id}">
+        Delete</button>
     </div>
     </li>
 {/for}

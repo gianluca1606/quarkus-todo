@@ -18,9 +18,9 @@ public class TodoServiceTest {
     @Test
     public void testCreateAndGetTodo() {
         TodoEntity todo = new TodoEntity();
-        todo.name = "Test Todo";
-        todo.description = "This is a test todo";
-        todo.done = false;
+        todo.setName("Test Todo");
+        todo.setDescription("This is a test todo");
+        todo.setDone(false);
 
         // Create a new todo
         todoService.createTodo(todo);
@@ -29,53 +29,54 @@ public class TodoServiceTest {
         // Retrieve the todo by ID
         TodoEntity retrievedTodo = todoService.getTodoById(todo.id);
         assertNotNull(retrievedTodo);
-        assertEquals("Test Todo", retrievedTodo.name);
-        assertEquals("This is a test todo", retrievedTodo.description);
-        assertEquals(false, retrievedTodo.done);
+        assertEquals("Test Todo", retrievedTodo.getName());
+        assertEquals("This is a test todo", retrievedTodo.getDescription());
+        assertEquals(false, retrievedTodo.isDone());
     }
 
     @Test
     public void testMarkTodoAsCompleted() {
         TodoEntity todo = new TodoEntity();
-        todo.name = "Incomplete Todo";
-        todo.description = "This todo is not completed";
-        todo.done = false;
+        todo.setName("Incomplete Todo");
+        todo.setDescription("This todo is not completed");
+        todo.setDone(false);
 
         todoService.createTodo(todo);
 
         // Mark the todo as completed
         TodoEntity completedTodo = todoService.markTodoAsCompleted(todo.id);
         assertNotNull(completedTodo);
-        assertTrue(completedTodo.done);
+        assertTrue(completedTodo.isDone());
     }
 
     @Test
     public void testUpdateTodo() {
         TodoEntity todo = new TodoEntity();
-        todo.name = "Old Name";
-        todo.description = "Old Description";
-        todo.done = false;
+        todo.setName("Old Name");
+        todo.setDescription("Old Description");
+        todo.setDone(false);
 
         todoService.createTodo(todo);
 
         // Update the todo
-        todo.name = "New Name";
-        todo.description = "New Description";
-        todo.done = true;
+        todo.setName("New Name");
+        todo.setDescription("New Description");
+        todo.setDone(true);
+
 
         TodoEntity updatedTodo = todoService.updateTodo(todo);
         assertNotNull(updatedTodo);
-        assertEquals("New Name", updatedTodo.name);
-        assertEquals("New Description", updatedTodo.description);
-        assertEquals(true, updatedTodo.done);
+        assertEquals("New Name", updatedTodo.getName());
+        assertEquals("New Description", updatedTodo.getDescription());
+        assertEquals(true, updatedTodo.isDone());
     }
 
     @Test
     public void testDeleteTodo() {
         TodoEntity todo = new TodoEntity();
-        todo.name = "Todo to Delete";
-        todo.description = "This todo will be deleted";
-        todo.done = false;
+        todo.setName("Todo to Delete");
+        todo.setDescription("This todo will be deleted");
+        todo.setDone(false);
 
         todoService.createTodo(todo);
 
@@ -90,14 +91,14 @@ public class TodoServiceTest {
     @Test
     public void testGetAllTodos() {
         TodoEntity todo1 = new TodoEntity();
-        todo1.name = "Todo 1";
-        todo1.description = "Description 1";
-        todo1.done = false;
+        todo1.setName("Todo 1");
+        todo1.setDescription("Description 1");
+        todo1.setDone(false);
 
         TodoEntity todo2 = new TodoEntity();
-        todo2.name = "Todo 2";
-        todo2.description = "Description 2";
-        todo2.done = true;
+        todo2.setName("Todo 2");
+        todo2.setDescription("Description 2");
+        todo2.setDone(true);
 
         todoService.createTodo(todo1);
         todoService.createTodo(todo2);

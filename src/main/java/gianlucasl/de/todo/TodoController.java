@@ -26,7 +26,6 @@ public class TodoController {
         return TodoTemplates.listTodos(todos);
     }
 
-
     @GET
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance getTodoPage() {
@@ -43,6 +42,17 @@ public class TodoController {
         return TodoTemplates.listTodos(List.of(todo));
     }
 
+    @DELETE
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_HTML)
+    @Blocking
+    public Response deleteTodoById(@PathParam("id") Long id) {
+        todoService.deleteTodo(id);
+        // Return a response with a NO_CONTENT status and an empty entity
+        return Response.noContent().build();
+    }
+
     @GET
     @Path("/create")
     @Produces(MediaType.TEXT_HTML)
@@ -54,12 +64,12 @@ public class TodoController {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Blocking
     public TemplateInstance createTodo(@FormParam("name") String name,
-                               @FormParam("description") String description,
-                               @FormParam("done") boolean done) {
+                                       @FormParam("description") String description,
+                                       @FormParam("done") boolean done) {
         TodoEntity todo = new TodoEntity();
-        todo.name = name;
-        todo.description = description;
-        todo.done = done;
+        todo.setName(name);
+        todo.setDescription(description);
+        todo.setDone(done);
         todoService.createTodo(todo);
         return TodoTemplates.listTodos(List.of(todo));
     }

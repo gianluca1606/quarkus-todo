@@ -23,10 +23,11 @@ public class TodoService {
     public TodoEntity markTodoAsCompleted(Long todoId) {
         TodoEntity todo = TodoEntity.findById(todoId);
         if (todo != null) {
-            todo.done = true;
+            todo.setDone(true);
         }
         return todo;
     }
+
     @Transactional
     public TodoEntity createTodo(TodoEntity todo) {
         todo.persist();
@@ -37,9 +38,9 @@ public class TodoService {
     public TodoEntity updateTodo(TodoEntity todo) {
         TodoEntity entity = TodoEntity.findById(todo.id);
         if (entity != null) {
-            entity.name = todo.name;
-            entity.description = todo.description;
-            entity.done = todo.done;
+            entity.setName(todo.getName());
+            entity.setDescription(todo.getDescription());
+            entity.setDone(todo.isDone());
         }
         return entity;
     }
