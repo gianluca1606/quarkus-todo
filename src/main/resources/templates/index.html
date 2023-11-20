@@ -35,8 +35,9 @@
 
             <div class="mb-4">
                 <label for="description" class="block text-sm font-medium text-gray-700">Description:</label>
-                <input type="text" id="description" name="description" class="mt-1 p-2 border rounded-md w-full"
-                       required>
+                <textarea id="description" name="description" class="mt-1 p-2 border rounded-md w-full"
+                          required>
+                </textarea>
             </div>
 
             <div class="mb-4">
@@ -50,8 +51,9 @@
     <div id="serious-errors"></div>
 </div>
 
-<!-- Optional: Include htmx script -->
-<script src="https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js"></script>
+<script src="https://unpkg.com/htmx.org@1.9.8"
+        integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr"
+        crossorigin="anonymous"></script>
 
 <script>
     document.body.addEventListener('htmx:afterSwap', function (evt) {

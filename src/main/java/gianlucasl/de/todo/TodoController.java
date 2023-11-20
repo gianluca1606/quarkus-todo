@@ -49,8 +49,10 @@ public class TodoController {
     @Blocking
     public Response deleteTodoById(@PathParam("id") Long id) {
         todoService.deleteTodo(id);
-        // Return a response with a NO_CONTENT status and an empty entity
-        return Response.noContent().build();
+        return Response.status(200)
+                .header("Content-Type", "text/html; charset=utf-8")
+                .entity("")
+                .build();
     }
 
     @GET
