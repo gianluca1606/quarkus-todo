@@ -1,27 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Todo</title>
-</head>
-<body>
-<h1>Create Todo</h1>
+<form id="createTodoForm" hx-target-5*="#serious-errors" hx-post="/todos" hx-target="#todoList" hx-swap="beforeend">
+    <div class="mb-4">
+        <label for="name" class="block text-sm font-medium text-gray-700">Name:</label>
+        <input type="text" id="name" name="name" class="mt-1 p-2 border rounded-md w-full" required>
+    </div>
 
-<form action="/todos" method="post">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" required><br>
+    <div class="mb-4">
+        <label for="description" class="block text-sm font-medium text-gray-700">Description:</label>
+        <input type="text" id="description" name="description" class="mt-1 p-2 border rounded-md w-full" required>
+    </div>
 
-    <label for="description">Description:</label>
-    <input type="text" id="description" name="description" required><br>
+    <div class="mb-4">
+        <label for="done" class="block text-sm font-medium text-gray-700">Done:</label>
+        <input type="checkbox" id="done" name="done" class="mt-1 p-2 border rounded-md">
+    </div>
 
-    <label for="done">Done:</label>
-    <input type="checkbox" id="done" name="done"><br>
-
-    <button type="submit">Create Todo</button>
+    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Update Todo</button>
 </form>
-
-<a href="/todos">Back to Todos</a>
-</body>
-</html>

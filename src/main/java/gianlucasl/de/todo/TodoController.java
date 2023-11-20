@@ -32,18 +32,11 @@ public class TodoController {
     public TemplateInstance getTodoPage() {
         return TodoTemplates.index();
     }
-    @GET
-    @Path("/{id}")
-    @Produces(MediaType.TEXT_HTML)
-    @Blocking
-    public TemplateInstance getTodoById(@PathParam("id") Long id) {
-        TodoEntity todo = todoService.getTodoById(id);
-        return TodoTemplates.details(todo);
-    }
 
     @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_HTML)
+    @Blocking
     @Path("/{id}/complete")
     public TemplateInstance markTodoAsCompleted(@PathParam("id") Long id) {
         TodoEntity todo = todoService.markTodoAsCompleted(id);
