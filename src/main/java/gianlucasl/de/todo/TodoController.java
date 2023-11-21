@@ -10,8 +10,7 @@ import jakarta.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/todos")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.TEXT_HTML)
 public class TodoController {
 
     @Inject
@@ -19,7 +18,6 @@ public class TodoController {
 
     @GET
     @Path("/list")
-    @Produces(MediaType.TEXT_HTML)
     @Blocking
     public TemplateInstance getTodos() {
         List<TodoEntity> todos = todoService.getAllTodos();
@@ -27,14 +25,12 @@ public class TodoController {
     }
 
     @GET
-    @Produces(MediaType.TEXT_HTML)
     public TemplateInstance getTodoPage() {
         return TodoTemplates.index();
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Produces(MediaType.TEXT_HTML)
     @Blocking
     @Path("/{id}/complete")
     public TemplateInstance markTodoAsCompleted(@PathParam("id") Long id) {
@@ -44,7 +40,6 @@ public class TodoController {
 
     @GET
     @Path("/{id}/edit")
-    @Produces(MediaType.TEXT_HTML)
     @Blocking
     public TemplateInstance getTodoForEdit(@PathParam("id") Long id) {
         TodoEntity todo = todoService.getTodoById(id);
@@ -54,7 +49,6 @@ public class TodoController {
     @PUT
     @Path("/{id}/update")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Produces(MediaType.TEXT_HTML)
     @Blocking
     public TemplateInstance updateTodo(@PathParam("id") Long id, @FormParam("name") String name, @FormParam("description") String description) {
         TodoEntity todo = todoService.getTodoById(id);
@@ -70,7 +64,6 @@ public class TodoController {
     @DELETE
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Produces(MediaType.TEXT_HTML)
     @Blocking
     public Response deleteTodoById(@PathParam("id") Long id) {
         todoService.deleteTodo(id);
@@ -79,7 +72,6 @@ public class TodoController {
 
     @GET
     @Path("/create")
-    @Produces(MediaType.TEXT_HTML)
     public TemplateInstance getCreateTodoForm() {
         return TodoTemplates.createForm();
     }
