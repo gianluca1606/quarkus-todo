@@ -23,7 +23,7 @@ public class TodoController {
     @Blocking
     public TemplateInstance getTodos() {
         List<TodoEntity> todos = todoService.getAllTodos();
-        return TodoTemplates.listTodos(todos);
+        return TodoTemplates.listTodos(todos, false);
     }
 
     @GET
@@ -39,7 +39,32 @@ public class TodoController {
     @Path("/{id}/complete")
     public TemplateInstance markTodoAsCompleted(@PathParam("id") Long id) {
         TodoEntity todo = todoService.markTodoAsCompleted(id);
-        return TodoTemplates.listTodos(List.of(todo));
+        return TodoTemplates.listTodos(List.of(todo), false);
+    }
+
+    @GET
+    @Path("/{id}/edit")
+    @Produces(MediaType.TEXT_HTML)
+    @Blocking
+    public TemplateInstance getTodoForEdit(@PathParam("id") Long id) {
+        TodoEntity todo = todoService.getTodoById(id);
+        return TodoTemplates.listTodos(List.of(todo), true);
+    }
+
+    @PUT
+    @Path("/{id}/update")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_HTML)
+    @Blocking
+    public TemplateInstance updateTodo(@PathParam("id") Long id, @FormParam("name") String name, @FormParam("description") String description) {
+        TodoEntity todo = todoService.getTodoById(id);
+        if (todo != null) {
+            todo.setName(name);
+            todo.setDescription(description);
+        }
+        todoService.updateTodo(todo);
+
+        return TodoTemplates.listTodos(List.of(todo), false);
     }
 
     @DELETE
@@ -49,10 +74,7 @@ public class TodoController {
     @Blocking
     public Response deleteTodoById(@PathParam("id") Long id) {
         todoService.deleteTodo(id);
-        return Response.status(200)
-                .header("Content-Type", "text/html; charset=utf-8")
-                .entity("")
-                .build();
+        return Response.status(200).header("Content-Type", "text/html; charset=utf-8").entity("").build();
     }
 
     @GET
@@ -65,15 +87,13 @@ public class TodoController {
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Blocking
-    public TemplateInstance createTodo(@FormParam("name") String name,
-                                       @FormParam("description") String description,
-                                       @FormParam("done") boolean done) {
+    public TemplateInstance createTodo(@FormParam("name") String name, @FormParam("description") String description) {
         TodoEntity todo = new TodoEntity();
         todo.setName(name);
         todo.setDescription(description);
-        todo.setDone(done);
+        todo.setDone(false);
         todoService.createTodo(todo);
-        return TodoTemplates.listTodos(List.of(todo));
+        return TodoTemplates.listTodos(List.of(todo), false);
     }
 
 }

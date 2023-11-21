@@ -7,7 +7,7 @@ import java.util.List;
 
 @CheckedTemplate
 public class TodoTemplates {
-    public static native TemplateInstance listTodos(List<TodoEntity> todos);
+    public static native TemplateInstance listTodos(List<TodoEntity> todos, boolean editMode);
 
     public static native TemplateInstance createForm();
 

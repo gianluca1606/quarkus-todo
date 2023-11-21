@@ -2,15 +2,61 @@
     <li id="todo-{todo.id}" class="mb-4">
     <div class="border p-4">
     <strong>ID:</strong> {todo.id},
-    <strong>Name:</strong> {todo.name},
-    <strong>Description:</strong> {todo.description},
-    <strong>Done:</strong> {#if todo.done}'Yes'{#else}'No'{/if}
-    {#if ! todo.done}
-        <button hx-put="/todos/{todo.id}/complete" hx-trigger="click" class="bg-blue-500 text-white px-4 py-2 rounded-full mt-2" hx-swap="outerHTML" hx-target="#todo-{todo.id}">
-            Mark as Completed</button>
+    {#if editMode}
+        <!-- Edit Mode -->
+        <form hx-put="/todos/{todo.id}/update" hx-trigger="submit" hx-swap="outerHTML" hx-target="#todo-{todo.id}" class="mb-2">
+        <div class="mb-2">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="{todo.name}" required class="w-full p-2 border rounded-md">
+        </div>
+
+        <div class="mb-2">
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" class="w-full p-2 border rounded-md" required>{todo.description}</textarea>
+        </div>
+
+        <div class="flex space-x-2">
+            <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-full mt-2">
+                Save Changes
+            </button>
+        </div>
+        </form>
+    {#else}
+        <!-- View Mode -->
+        <div class="mb-2">
+            <strong>Name:</strong> {todo.name},
+        </div>
+
+        <div class="mb-2">
+            <strong>Description:</strong> {todo.description},
+        </div>
+
+        <div class="mb-2">
+            <strong>Done:</strong> {#if todo.done}'Yes'{#else}'No'{/if}
+        </div>
+
+        <div class="flex space-x-2">
+        {#if ! todo.done}
+            <button hx-put="/todos/{todo.id}/complete" hx-trigger="click"
+            class="bg-blue-500 text-white px-4 py-2 rounded-full mt-2"
+            hx-swap="outerHTML" hx-target="#todo-{todo.id}">
+                Mark as Completed
+            </button>
+        {/if}
+
+        <button hx-get="/todos/{todo.id}/edit" hx-trigger="click"
+                class="bg-yellow-500 text-white px-4 py-2 rounded-full mt-2" hx-swap="outerHTML"
+                hx-target="#todo-{todo.id}">
+            Edit
+        </button>
+
+        <button hx-delete="/todos/{todo.id}" hx-trigger="click"
+        class="bg-red-500 text-white px-4 py-2 rounded-full mt-2"
+        hx-swap="outerHTML" hx-target="#todo-{todo.id}">
+            Delete
+        </button>
+        </div>
     {/if}
-    <button hx-delete="/todos/{todo.id}" hx-trigger="click" class="bg-red-500 text-white px-4 py-2 rounded-full mt-2" hx-swap="outerHTML" hx-target="#todo-{todo.id}">
-        Delete</button>
     </div>
     </li>
 {/for}
