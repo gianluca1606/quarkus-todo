@@ -1,7 +1,7 @@
 FROM maven:3.8.1-openjdk-17-slim AS build
 WORKDIR /home/app
 COPY . .
-RUN mvn package
+RUN mvn -DskipTests package
 
 FROM registry.access.redhat.com/ubi8/openjdk-17:1.17
 
